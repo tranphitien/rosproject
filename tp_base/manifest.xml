@@ -1,0 +1,24 @@
+<package>
+  <description brief="project1">
+
+     project1
+
+  </description>
+  <author>edo</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/project1</url>
+  <depend package="std_msgs"/>
+  <depend package="tf"/>
+  <depend package="roscpp"/>
+  <depend package="geometry_msgs"/>
+  <depend package="move_base_msgs"/>
+  <depend package="urdf"/>
+  <depend package="robot_state_publisher"/>
+  <!--depend package="xacro"/>
+  <depend package="laser_filters"/-->
+  <depend package="actionlib"/>
+
+</package>
+
+

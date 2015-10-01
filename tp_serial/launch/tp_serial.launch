@@ -1,0 +1,4 @@
+<?xml sersion = "1.0"?>
+<launch>
+	<node name = "tp_serial" type = "tp_serial" pkg = "tp_serial" />
+</launch>

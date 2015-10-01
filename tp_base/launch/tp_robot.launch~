@@ -1,0 +1,8 @@
+<?xml version = "1.0"?>
+<launch>
+	<master auto = "start" />
+	<!-- Run the configuration_nodes-->
+	<include file = "$(find tp_base)/launch/configuration_nodes.launch" />
+	<!-- Run the robot display-->
+	<include file = "$(find tp_base)/launch/configuration_tp_robot.launch" />
+</launch>

@@ -1,0 +1,27 @@
+<?xml version = "1.0" ?>
+<launch>
+	<arg name = "model" value = "$(find test2)/urdf/tp_robot.urdf"/>
+	<arg name = "gui" default="False" />
+	<param name = "robot_description" textfile="$(arg model)" />
+	<param name = "use_gui" value = "$(arg gui)" />
+	<!--to joint elements together-->
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+	
+	
+	<node name = "robot_tf_publisher" pkg = "test2" type = "tf_broadcaster" output = "screen" />
+	<node name = "robot_tf_listener" pkg = "test2" type = "tf_listener" output = "screen" />
+	
+	<node name = "laser_scan_publisher" pkg = "test2" type = "laser" output = "screen" />
+	<node name = "point_cloud_publisher" pkg = "test2" type = "pointcloud" output = "screen" />
+	<node name = "state_publisher" pkg = "test2" type = "odometry" output = "screen" />
+	<node name = "base_controller" pkg = "test2" type = "base_controller" output = "screen" />
+	
+	<!--node name = "slam_gmapping" pkg = "gmapping" type = "slam_gmapping">
+	<remap from = "scan" to = "base_scan/scan" />
+	</node-->
+	<!-- call rviz application with default inteface is urdf.rviz-->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" />
+	<!--node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model robot1 -param robot_description -z 0.05"/--> 
+</launch>

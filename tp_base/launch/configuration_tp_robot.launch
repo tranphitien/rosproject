@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+	<!--param name = "/use_sim_time" vulue = "true" /-->
+	
+	<!--start up wg world-->
+	<!--include file = "$(find gazebo_worlds)/launch/wg_collade_world.launch"/-->
+	
+	<arg name = "model" default = "$(find tp_base)/urdf/tp_robot.urdf" />
+	<arg name = "gui" default="False" />
+	<param name = "robot_description" textfile="$(arg model)" />
+	<param name = "use_gui" value = "$(arg gui)" />
+	<!--to joint elements together-->
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<!--start robot state publisher-->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output = "screen"/>
+	
+	<!--node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model robot1 -param robot_description -z 0.05"/-->
+	
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" />
+</launch>

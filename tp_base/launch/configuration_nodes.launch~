@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- Run the map_server node-->
+	<node name = "map_server" pkg = "map_server" type = "map_server" args = "$(find tp_base)/maps/map.yaml" ouput = "screen">
+		<param name = "frame_id" value = "/map" />
+	</node>
+	
+	<!-- Run amcl node-->
+	<include file = "$(find amcl)/examples/amcl_diff.launch" />
+	<!-- Run the move_base node-->
+	<node pkg = "move_base" type = "move_base" respawn = "false" name = "move_base" output = "screen">
+		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find tp_base)/launch/config_nav/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find tp_base)/launch/config_nav/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />
+	</node>
+	<!--the first one is the node responsible for activating the sensors, for example, the Laser Imaging, Detection, and Ranging
+	(LIDAR) system.the parameter sensor_param can be used to configure the sensor's port, for example, if the sensor uses a USB
+	connection. If the your sensor needs more parameters, you need to duplicate the line and add the necessary parameters-->
+	<!-- Run the sensor sources node-->
+	<node pkg = "sensor_node_pkg" type = "sensor_node_type" name = "sensor_node_name" output = "screen">
+		<param name = "sensor_param" value = "param_value" />
+	</node>
+	
+	<!--the second node is to start the odometry, the base control and all the neccessry files to move the base and calculate
+	the robot's position.-->
+	<!-- Run the odometry sources node-->
+	<node pkg = "odom_node_pkg" type = "odom_node_type" name = "odom_node" output = "screen">
+		<param name = "odom_param" value = "param_value" />
+	</node>
+	
+	<!--the third part is meant to launch the node responsible for publishing and calculating the geometry of the robot
+	and the transform between arms, sensors and so on-->
+	<!-- Run the sensor transforms node-->
+	<node pkg = "tp_base" type = "robot_tf_publisher" name = "robot_tf_publisher" output = "screen">
+		<param name = "tilt_angle" value = "0.0" type = "double" />
+		<param name = "camera_height" value = "0.55" type = "double" />
+	</node>
+	
+	<!--Run Kinect and depthimage_to_laserscan node-->
+	<include file="$(find openni_launch)/launch/openni.launch" />
+	<node name= "depthimage_to_laserscan" respawn = "true" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan">
+		<remap from="image" to="/camera/depth/image_raw"/>				<!--topic name of depth_image from openni-->
+		<remap from="camera_info" to="/camera/depth/camera_info"/> 	<!--thong tin cau tao cua cam bien-->
+		<param name = "scan_height" vaulue = "60" type = "int" />	<!--chi so cua row ma ta muon lay lat cat-->
+																						<!--scan_height cang lon thi lat cat can gan mat dat-->
+		<param name = "output_frame_id" value = "/laser_link" type = "string" /> 	<!--day la he toa do cua lat cat-->
+																											<!--mat dinh lat cat nam trong mat phang 0xy-->
+		<param name = "scan_time" value = "0.04" type = "double" />	<!--tan so publish cua message tu cam bien laser-->
+	</node>
+
+</launch>

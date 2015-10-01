@@ -1,0 +1,14 @@
+local_costmap:
+	global_frame: /map
+	robot_base_frame: /base_footprint
+	update_frequency: 1.0
+	publish_frequency: 2.0
+	static_map: true
+	rolling_window: false
+	width: 10.0
+	height: 10.0
+	resolution: 0.1
+	
+#the publish_frequency parameter determines the frequency to publish information.
+#the rolling_window parameter is used to keep the costmap centered on the robot when it is moving around the world
+#And you can configure the dimensions and the resolution of the costmap with the width, heigh and resolution parameter (meter)

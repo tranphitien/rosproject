@@ -1,0 +1,10 @@
+global_costmap:
+	global_frame: /map
+	robot_base_frame: /base_footprint
+	update_frequency: 1.0
+	static_map: true
+
+#the global_frame and the robot_base_frame attributes define the transformation between the map and the robot.
+#configure the frequency for the updates for the costmap (Hz)
+#the static_map attribute is used for the global costmap to know if a map or the map server is used to initial
+
