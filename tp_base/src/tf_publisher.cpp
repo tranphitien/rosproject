@@ -8,7 +8,7 @@ int main (int argc, char** argv){
 	double tilt_angle, camera_height;
 	
 	n.param("tilt_angle", tilt_angle, 0.3);
-	n.param("camera_height", camera_height, 0.55);
+	n.param("camera_height", camera_height, 0.5);
 	
 	ros::Rate rate_loop(50);
 	
@@ -24,7 +24,7 @@ int main (int argc, char** argv){
 		
 		broadcaster.sendTransform(
 			tf::StampedTransform(
-				tf::Transform(tf::Quaternion(0,0,0), tf::Vector3(-0.2, 0, 0.1)),
+				tf::Transform(tf::Quaternion(0,0,0), tf::Vector3(-0.157, 0, 0.05)),
 				ros::Time::now(), "base_robot", "base_underneath"
 			)
 		);

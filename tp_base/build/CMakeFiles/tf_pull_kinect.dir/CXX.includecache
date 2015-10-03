@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/edo/dev/rosprojects/tp_base/src/tf_publisher.cpp
+/home/edo/dev/rosprojects/tp_base/src/tf_pull_kinect.cpp
 ros/ros.h
 -
 tf/transform_broadcaster.h

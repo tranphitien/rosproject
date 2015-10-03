@@ -14,7 +14,7 @@
 		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="local_costmap" />
 		<rosparam file="$(find tp_base)/launch/config_nav/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
 		<rosparam file="$(find tp_base)/launch/config_nav/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
-		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />	<!--local_planner-->
+		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
 	</node>
 	
 	<!--the first one is the node responsible for activating the sensors, for example, the Laser Imaging, Detection, and Ranging
