@@ -5,7 +5,7 @@ SET(CMAKE_DEPENDS_LANGUAGES
 
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
-  "ROS_PACKAGE_NAME=\"project1\""
+  "ROS_PACKAGE_NAME=\"tp_base\""
   )
 
 # Targets to which this target links.

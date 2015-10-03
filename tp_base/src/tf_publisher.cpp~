@@ -25,10 +25,17 @@ int main (int argc, char** argv){
 		broadcaster.sendTransform(
 			tf::StampedTransform(
 				tf::Transform(tf::Quaternion(0,0,0), tf::Vector3(-0.2, 0, 0.1)),
-				ros::Time::now(), "base_robot", "base_link"
+				ros::Time::now(), "base_robot", "base_underneath"
 			)
 		);
 		
+		broadcaster.sendTransform(
+			tf::StampedTransform(
+				tf::Transform(tf::Quaternion(0,0,0), tf::Vector3(0,0,0.3)),
+				ros::Time::now(), "base_robot", "laser_link"
+			)
+		);
 		
+		rate_loop.sleep();
 	}
 }

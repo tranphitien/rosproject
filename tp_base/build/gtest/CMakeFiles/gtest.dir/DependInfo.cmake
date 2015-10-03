@@ -4,13 +4,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/usr/src/gtest/src/gtest-all.cc" "/home/edo/dev/rosprojects/project1/build/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
+  "/usr/src/gtest/src/gtest-all.cc" "/home/edo/dev/rosprojects/tp_base/build/gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
-  "ROS_PACKAGE_NAME=\"project1\""
+  "ROS_PACKAGE_NAME=\"tp_base\""
   "GTEST_CREATE_SHARED_LIBRARY=1"
   )
 

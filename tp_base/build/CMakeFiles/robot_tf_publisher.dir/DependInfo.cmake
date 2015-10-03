@@ -4,13 +4,13 @@ SET(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 SET(CMAKE_DEPENDS_CHECK_CXX
-  "/home/edo/dev/rosprojects/project1/src/sendGoals.cpp" "/home/edo/dev/rosprojects/project1/build/CMakeFiles/navigation_goals.dir/src/sendGoals.cpp.o"
+  "/home/edo/dev/rosprojects/tp_base/src/tf_publisher.cpp" "/home/edo/dev/rosprojects/tp_base/build/CMakeFiles/robot_tf_publisher.dir/src/tf_publisher.cpp.o"
   )
 SET(CMAKE_CXX_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 SET(CMAKE_TARGET_DEFINITIONS
-  "ROS_PACKAGE_NAME=\"project1\""
+  "ROS_PACKAGE_NAME=\"tp_base\""
   )
 
 # Targets to which this target links.

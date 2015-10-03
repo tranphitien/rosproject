@@ -39,6 +39,9 @@ static double x = 0, y = 0, theta = 0;
 static double linear_x = 0, angular_z = 0;
 
 double WHEEL_COVARIANCE = 1e-3;
+//double ORI_COV = 1e-3;
+//double AGL_VEL_COV = 1e-3;
+//double LIN_ACE_COV = 1e-3;
 
 #ifdef TEST_COM
 uint16_t error_count = 0;
@@ -49,30 +52,38 @@ float com_error_rate = 0.0;
 void ucCommandCallback(const geometry_msgs::Twist::ConstPtr& msg){
 	if(msg->linear.x != 0 || msg->linear.z != 0)
 		cmd_frame[1] = 'R';
-	else cmd_frame[1] = 'L';
-	
+	else cmd_frame[1] = 'r';
+	// Do some conversion to send speed values to MCU
+	*(int16_t *)(cmd_frame + 4) = (int16_t)((msg->linear.x - msg->angular.z*0.2)*10000/M_PI);
+	*(int16_t *)(cmd_frame + 6) = (int16_t)((msg->linear.x + msg->angular.z*0.2)*10000/M_PI);
+
+	ROS_INFO("ROS Command: \n\
+			 left_speed: %d\n\
+			 right_speed: %d",
+			 *(int16_t *)(cmd_frame + 4), *(int16_t *)(cmd_frame + 6));
 }
 
 int main (int argc, char** argv){
 	ros::init(argc, argv, "tp_serial");
 	ros::NodeHandle n;
+	ROS_INFO("Serial server is starting");
 
 	ros::Time current_time;
+
+	tf::TransformBroadcaster transform_broadcaster;
 
 	ros::Subscriber ucCommandMsg; // subscript to "cmd_vel" for receive command
 	ros::Publisher odom_pub; // publish the odometry
 	ros::Publisher path_pub;
 
-	static tf::Quaternion move_base_quat;
-
 	nav_msgs::Odometry move_base_odom;
 	nav_msgs::Path pathMsg;
 
-	tf::TransformBroadcaster transform_broadcaster;
+	static tf::Quaternion move_base_quat;
 
 	//Initialize fixed values for odom and tf message
 	move_base_odom.header.frame_id = "world_frame";
-	move_base_odom.child_frame_id = "tp_robot";
+	move_base_odom.child_frame_id = "base_robot";
 
 	//Reset all covariance values
 	move_base_odom.pose.covariance = boost::assign::list_of(WHEEL_COVARIANCE)(0)(0)(0)(0)(0)
@@ -134,7 +145,7 @@ int main (int argc, char** argv){
 	ucCommandMsg = n.subscribe<geometry_msgs::Twist>("cmd_ved", 1, ucCommandCallback);
 	//Setup to publish ROS message
 	odom_pub = n.advertise<nav_msgs::Odometry>("tp_robot/odom", 10);
-	path_pub = n.advertise<nav_msgs::Path>("tp_robot/odomPaht", 10);
+	path_pub = n.advertise<nav_msgs::Path>("tp_robot/odomPath", 10);
 
 	// An "adaptive" timer to maintain periodical communication with the MCU
 	ros::Rate rate(FPS);
@@ -201,7 +212,7 @@ int main (int argc, char** argv){
 				double right_delta = right_path - right_path1;
 
 				//only if the robot has traveled a significant distance will be calculate the odometry
-				if(!((left_delta < 0.0075 && left_delta > -0.0075) && (right_delta < 0.0075 && right_delta > -0.075))){
+				if(!((left_delta < 0.0075 && left_delta > -0.0075) && (right_delta < 0.0075 && right_delta > -0.0075))){
 					//Calculate the pose in reference to world base
 					theta += (right_delta - left_delta)/0.38;
 
@@ -226,7 +237,7 @@ int main (int argc, char** argv){
 				move_base_quat = tf::Quaternion(tf::Vector3(0, 0, 1), theta);
 				transform_broadcaster.sendTransform(tf::StampedTransform(
 													tf::Transform(move_base_quat, tf::Vector3(x,y,0)),
-													ros::Time::now(), "world_frame", "tp_robot"));
+													ros::Time::now(), "world_frame", "base_robot"));
 
 				//Publish the odometry message over ROS
 				move_base_odom.header.stamp = current_time;
@@ -255,7 +266,7 @@ int main (int argc, char** argv){
 				odom_pub.publish(move_base_odom);
 				path_pub.publish(pathMsg);
 
-				ROS_INFO("MCU responsed: %s\t%d\t%f\t%f\t%f\t%f\t%d", cmd_field,\
+				ROS_INFO("MCU responded: %s\t%d\t%f\t%f\t%f\t%f\t%d", cmd_field,\
 																rcv_pkg_id,\
 																left_speed,\
 																right_speed,\

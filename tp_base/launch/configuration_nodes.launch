@@ -12,25 +12,25 @@
 	<node pkg = "move_base" type = "move_base" respawn = "false" name = "move_base" output = "screen">
 		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="global_costmap" />
 		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="local_costmap" />
-		<rosparam file="$(find tp_base)/launch/config_nav/global_costmap_params.yaml" command="load" />
-		<rosparam file="$(find tp_base)/launch/config_nav/local_costmap_params.yaml" command="load" />
-		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />
+		<rosparam file="$(find tp_base)/launch/config_nav/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
+		<rosparam file="$(find tp_base)/launch/config_nav/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
+		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
 	</node>
 	
 	<!--the first one is the node responsible for activating the sensors, for example, the Laser Imaging, Detection, and Ranging
 	(LIDAR) system.the parameter sensor_param can be used to configure the sensor's port, for example, if the sensor uses a USB
 	connection. If the your sensor needs more parameters, you need to duplicate the line and add the necessary parameters-->
 	<!-- Run the sensor sources node-->
-	<node pkg = "sensor_node_pkg" type = "sensor_node_type" name = "sensor_node_name" output = "screen">
+	<!--node pkg = "sensor_node_pkg" type = "sensor_node_type" name = "sensor_node_name" output = "screen">
 		<param name = "sensor_param" value = "param_value" />
-	</node>
+	</node-->
 	
 	<!--the second node is to start the odometry, the base control and all the neccessry files to move the base and calculate
 	the robot's position.-->
 	<!-- Run the odometry sources node-->
-	<node pkg = "odom_node_pkg" type = "odom_node_type" name = "odom_node" output = "screen">
+	<!--node pkg = "odom_node_pkg" type = "odom_node_type" name = "odom_node" output = "screen">
 		<param name = "odom_param" value = "param_value" />
-	</node>
+	</node-->
 	
 	<!--the third part is meant to launch the node responsible for publishing and calculating the geometry of the robot
 	and the transform between arms, sensors and so on-->
@@ -42,10 +42,11 @@
 	
 	<!--Run Kinect and depthimage_to_laserscan node-->
 	<include file="$(find openni_launch)/launch/openni.launch" />
-	<node name= "depthimage_to_laserscan" respawn = "true" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan">
-		<remap from="image" to="/camera/depth/image_raw"/>				<!--topic name of depth_image from openni-->
-		<remap from="camera_info" to="/camera/depth/camera_info"/> 	<!--thong tin cau tao cua cam bien-->
-		<param name = "scan_height" vaulue = "60" type = "int" />	<!--chi so cua row ma ta muon lay lat cat-->
+	<remap from="image" to="/camera/depth/image_rect_raw"/>				<!--topic name of depth_image from openni-->
+	<remap from="camera_info" to="/camera/depth/camera_info"/> 	<!--thong tin cau tao cua cam bien-->
+	<node respawn = "true" name= "depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan">
+		
+		<param name = "scan_height" value = "60" type = "int" />	<!--chi so cua row ma ta muon lay lat cat-->
 																						<!--scan_height cang lon thi lat cat can gan mat dat-->
 		<param name = "output_frame_id" value = "/laser_link" type = "string" /> 	<!--day la he toa do cua lat cat-->
 																											<!--mat dinh lat cat nam trong mat phang 0xy-->
