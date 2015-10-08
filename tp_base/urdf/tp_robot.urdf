@@ -24,7 +24,7 @@
 		<link name = "base_laser">
 			<visual>
 				<geometry>
-					<box size="0.04 0.2 0.024" />
+					<box size="0.05 0.25 0.046" />
 				</geometry>
 				<material name = "blackest">
 					<color rgba = "0.12 0.05 0.05 1" />
@@ -42,6 +42,28 @@
 		       			iyy="0.0001" iyz="0.0" 
 		       			izz="0.0001" />
 	  		</inertial>
+		</link>
+		
+		<link name = "bott_kinect">
+			<visual>
+				<geometry>
+					<box size="0.05 0.08 0.03" />
+				</geometry>
+				<material name = "blackest">
+					<color rgba = "0.12 0.05 0.05 1" />
+				</material>
+			</visual>
+		</link>
+		
+		<link name = "rect_bott">
+			<visual>
+				<geometry>
+					<box size="0.07 0.145 0.003" />
+				</geometry>
+				<material name = "blue">
+					<color rgba = "0.0118 0.1373 0.4863 1" />
+				</material>
+			</visual>
 		</link>
 		
 		<link name = "left_wheel">
@@ -70,7 +92,7 @@
 		<link name = "wheel_front_of">
 			<visual>
 				<geometry>
-					<sphere radius="0.014" />
+					<sphere radius="0.02" />
 				</geometry>
 				<material name = "blue_white">
 					<color rgba = "0.5333 0.525 0.6 1"/>
@@ -81,7 +103,7 @@
 		<link name = "wheel_behind">
 			<visual>
 				<geometry>
-					<sphere radius="0.014" />
+					<sphere radius="0.02" />
 				</geometry>
 				<material name = "blue_white">
 					<color rgba = "0.5333 0.525 0.6 1"/>
@@ -94,7 +116,7 @@
 		<link name = "ver_laser_left">
 			<visual>
 				<geometry>
-					<cylinder length="0.27" radius="0.004" />
+					<cylinder length="0.282" radius="0.004" />
 				</geometry>
 				<material name = "white_gray">
 					<color rgba="0.808 0.749 0.569 1"/>
@@ -105,7 +127,7 @@
 		<link name = "ver_laser_right">
 			<visual>
 				<geometry>
-					<cylinder length="0.27" radius="0.004" />
+					<cylinder length="0.282" radius="0.004" />
 				</geometry>
 				<material name = "white_gray">
 					<color rgba = "0.95 1 0.95 1" />
@@ -117,7 +139,7 @@
 		<link name = "ver1">
 			<visual>
 				<geometry>
-					<cylinder length="0.15" radius="0.004" />
+					<cylinder length="0.111" radius="0.004" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -126,7 +148,7 @@
 		<link name = "ver2">
 			<visual>
 				<geometry>
-					<cylinder length="0.15" radius="0.004" />
+					<cylinder length="0.111" radius="0.004" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -135,7 +157,7 @@
 		<link name = "ver3">
 			<visual>
 				<geometry>
-					<cylinder length="0.15" radius="0.004" />
+					<cylinder length="0.111" radius="0.004" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -144,7 +166,7 @@
 		<link name = "ver4">
 			<visual>
 				<geometry>
-					<cylinder length="0.15" radius="0.004" />
+					<cylinder length="0.111" radius="0.004" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -153,7 +175,7 @@
 		<link name = "ver5">
 			<visual>
 				<geometry>
-					<cylinder length="0.15" radius="0.004" />
+					<cylinder length="0.111" radius="0.004" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -162,7 +184,7 @@
 		<link name = "wheel_bar_front_of">
 			<visual>
 				<geometry>
-					<box size="0.03 0.03 0.03" />
+					<box size="0.03 0.03 0.0721" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -171,7 +193,7 @@
 		<link name = "wheel_bar_behind">
 			<visual>
 				<geometry>
-					<box size="0.03 0.03 0.03" />
+					<box size="0.03 0.03 0.0721" />
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
@@ -204,102 +226,114 @@
 		<joint name = "base_to_laser" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "base_laser" />
-			<origin rpy = "0 0 0" xyz = "0.157 0 0.42" />
+			<origin rpy = "0 0 0" xyz = "0.157 0 0.446" />
 		</joint>
 		
 		<joint name = "base_to_ver_left" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver_laser_left" />
-			<origin rpy = "0 0 0" xyz = "0.157 0.045 0.285" />
+			<origin rpy = "0 0 0" xyz = "0.157 0.045 0.252" />
 		</joint>
 		
 		<joint name = "base_to_ver_right" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver_laser_right" />
-			<origin rpy = "0 0 0" xyz = "0.157 -0.045 0.285" />
+			<origin rpy = "0 0 0" xyz = "0.157 -0.045 0.252" />
 		</joint>
 		
 		<joint name = "base_to_base_up" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "base_up_robot" />
-			<origin rpy = "0 0 0" xyz = "0 0 0.15" />
+			<origin rpy = "0 0 0" xyz = "0 0 0.111" />
 		</joint>
 		
 		<joint name = "base_to_left_wheel" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "left_wheel" />
-			<origin xyz = "0 -0.2 0" />
+			<origin xyz = "0 -0.181 -0.05" />
 		</joint>
 		
 		<joint name = "base_to_right_wheel" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "right_wheel" />
-			<origin xyz = "0 0.2 0" />
+			<origin xyz = "0 0.181 -0.05" />
 		</joint>
 		
 		<joint name = "base_to_ver1" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver1" />
-			<origin xyz = "0.125 -0.07 0.075" />
+			<origin xyz = "0.125 -0.07 0.0555" />
 		</joint>
 		
 		<joint name = "base_to_ver2" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver2" />
-			<origin rpy = "0 0 0" xyz = "0.125 0.07 0.075" />
+			<origin rpy = "0 0 0" xyz = "0.125 0.07 0.0555" />
 		</joint>
 		
 		<joint name = "base_to_ver3" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver3" />
-			<origin rpy = "0 0 0" xyz = "-0.08 0.115 0.075" />
+			<origin rpy = "0 0 0" xyz = "-0.08 0.115 0.0555" />
 		</joint>
 		
 		<joint name = "base_to_ver4" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver4" />
-			<origin rpy = "0 0 0" xyz = "-0.08 -0.115 0.075" />
+			<origin rpy = "0 0 0" xyz = "-0.08 -0.115 0.0555" />
 		</joint>
 		
 		<joint name = "base_to_ver5" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "ver5" />
-			<origin rpy = "0 0 0" xyz = "-0.165 0 0.075" />
+			<origin rpy = "0 0 0" xyz = "-0.165 0 0.0555" />
 		</joint>
 		
 		<joint name = "base_to_wheel_bar_f" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "wheel_bar_front_of" />
-			<origin rpy = "0 0 0" xyz = "0.13 0 -0.015" />
+			<origin rpy = "0 0 0" xyz = "0.13 0 -0.03605" />
 		</joint>
 		
 		<joint name = "base_to_wheel_bar_b" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "wheel_bar_behind" />
-			<origin rpy = "0 0 0" xyz = "-0.13 0 -0.015" />
+			<origin rpy = "0 0 0" xyz = "-0.13 0 -0.03605" />
 		</joint>
 		
 		<joint name = "base_to_wheel_b" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "wheel_behind" />
-			<origin rpy = "0 0 0" xyz = "-0.13 0 -0.036" />
+			<origin rpy = "0 0 0" xyz = "-0.13 0 -0.08" />
 		</joint>
 		
 		<joint name = "base_to_wheel_f" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "wheel_front_of" />
-			<origin rpy = "0 0 0" xyz = "0.13 0 -0.036" />
+			<origin rpy = "0 0 0" xyz = "0.13 0 -0.08" />
 		</joint>
 		
 		<joint name = "base_to_base_lap" type = "fixed">
 			<parent link = "base_underneath" />
 			<child link = "base_laptop" />
-			<origin rpy = "0 0 0" xyz = "-0.03 0 0.155" />
+			<origin rpy = "0 0 0" xyz = "-0.03 0 0.123" />
 		</joint>
 		
 		<joint name = "base_laptop_to_screen" type = "fixed">
 			<parent link = "base_laptop" />
 			<child link = "screen_laptop" />
 			<origin xyz = "0.12 0 0.11" />
+		</joint>
+		
+		<joint name = "kinect_to_bott" type = "fixed">
+			<parent link = "base_laser" />
+			<child link = "bott_kinect" />
+			<origin xyz = "0 0 -0.038" />
+		</joint>
+		
+		<joint name = "base_to_rect_bott" type = "fixed">
+			<parent link = "base_underneath" />
+			<child link = "rect_bott" />
+			<origin xyz = "0.157 0 0.393" />
 		</joint>
 	</robot>

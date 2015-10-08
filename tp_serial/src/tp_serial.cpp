@@ -1,6 +1,6 @@
 #define ROS_MASTER_URI	"http:://localhost:11311"
 #define ROS_ROOT	"opt/ros/hydro/share/ros"
-
+//ROS library
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
@@ -9,11 +9,13 @@
 #include <tf/transform_broadcaster.h>
 #include <boost/assign/list_of.hpp>
 
+//serial library
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <termios.h>
+
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -24,7 +26,7 @@
 #define FPS	40		//frames per second
 #define RCV_LENGTH	20
 
-#define TEST_COM
+//#define TEST_COM
 
 static uint8_t cmd_frame[8];
 static uint8_t rsp_frame[20];
@@ -50,7 +52,7 @@ float com_error_rate = 0.0;
 
 
 void ucCommandCallback(const geometry_msgs::Twist::ConstPtr& msg){
-	if(msg->linear.x != 0 || msg->linear.z != 0)
+	if(msg->linear.x != 0 || msg->angular.z != 0)
 		cmd_frame[1] = 'R';
 	else cmd_frame[1] = 'r';
 	// Do some conversion to send speed values to MCU
@@ -82,7 +84,7 @@ int main (int argc, char** argv){
 	static tf::Quaternion move_base_quat;
 
 	//Initialize fixed values for odom and tf message
-	move_base_odom.header.frame_id = "world_frame";
+	move_base_odom.header.frame_id = "odom";
 	move_base_odom.child_frame_id = "base_robot";
 
 	//Reset all covariance values
@@ -98,7 +100,7 @@ int main (int argc, char** argv){
 															(0)(0)(0)(999999)(0)(0)
 															(0)(0)(0)(0)(999999)(0)
 															(0)(0)(0)(0)(0)(WHEEL_COVARIANCE);
-	pathMsg.header.frame_id = "world_frame";
+	pathMsg.header.frame_id = "odom";
 	//----------ROS Odometry publishing------------------
 
 	//----------Initialize serial connection
@@ -114,13 +116,12 @@ int main (int argc, char** argv){
 	}
 	//set up new setting
 	memset(&newtio, 0, sizeof(newtio));
-	newtio.c_cflag = CS8 | CLOCAL | CREAD; //no parity, 1 stop bit
-	newtio.c_iflag = IGNCR; //ignore CR, other opption off
+	newtio.c_cflag = CS8 | CLOCAL | CREAD; //8bit, no parity, 1 stop bit
 	newtio.c_iflag |= IGNBRK; //ignore break codition
 	newtio.c_oflag = 0;	//all options off
 	//newtio.c_lflag = ICANON; //process input as lines
 	newtio.c_cc[VTIME] = 0;
-	newtio.c_cc[VMIN] = 20;
+	newtio.c_cc[VMIN] = 20; // byte readed per a time
 	//active new setting
 	tcflush(fd, TCIFLUSH);
 
@@ -142,7 +143,7 @@ int main (int argc, char** argv){
 
 	//Creating message to talk with ROS
 	//Subscribe to ROS message
-	ucCommandMsg = n.subscribe<geometry_msgs::Twist>("cmd_ved", 1, ucCommandCallback);
+	ucCommandMsg = n.subscribe<geometry_msgs::Twist>("cmd_vel", 1, ucCommandCallback);
 	//Setup to publish ROS message
 	odom_pub = n.advertise<nav_msgs::Odometry>("tp_robot/odom", 10);
 	path_pub = n.advertise<nav_msgs::Path>("tp_robot/odomPath", 10);
@@ -164,7 +165,10 @@ int main (int argc, char** argv){
 		//Impose command and get back respone
 		int res;
 		cmd_frame[0] = 'f';
+		//cmd_frame[1] = 'T';
 		*(uint16_t *)(cmd_frame + 2) = pkg_id;
+		//*(uint16_t *)(cmd_frame + 4) = left_speed; //set left speed
+		//*(uint16_t *)(cmd_frame + 6) = right_speed; // set right speed
 		res = write(fd, cmd_frame, 8);
 		if (res < 8) ROS_ERROR("Error sending command");
 
@@ -172,10 +176,10 @@ int main (int argc, char** argv){
 		//sleep to wait the response is returned
 		rate.sleep();
 
-		//Read a number of RCVTHRESHOLD chars as if they have arrived
+		//Read a number of RCV_LENGHT chars as if they have arrived
 		res = read(fd, rsp_frame, RCV_LENGTH);
 		if (res < RCV_LENGTH){
-			ROS_ERROR("frame %d dropped", pkg_id);
+			ROS_INFO("frame %d dropped........%d", pkg_id, res);
 #ifdef TEST_COM
 			error_count ++;
 #endif
@@ -237,7 +241,7 @@ int main (int argc, char** argv){
 				move_base_quat = tf::Quaternion(tf::Vector3(0, 0, 1), theta);
 				transform_broadcaster.sendTransform(tf::StampedTransform(
 													tf::Transform(move_base_quat, tf::Vector3(x,y,0)),
-													ros::Time::now(), "world_frame", "base_robot"));
+													ros::Time::now(), "odom", "base_robot"));
 
 				//Publish the odometry message over ROS
 				move_base_odom.header.stamp = current_time;
