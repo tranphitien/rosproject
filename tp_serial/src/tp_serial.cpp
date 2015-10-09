@@ -47,8 +47,8 @@ void ucCommandCallback(const geometry_msgs::Twist::ConstPtr& msg){
 		cmd_frame[1] = 'R';
 	else cmd_frame[1] = 'r';
 	// Do some conversion to send speed values to MCU
-	*(int16_t *)(cmd_frame + 4) = (int16_t)((msg->linear.x - msg->angular.z*0.362)*98500/M_PI);
-	*(int16_t *)(cmd_frame + 6) = (int16_t)((msg->linear.x + msg->angular.z*0.362)*98500/M_PI);
+	*(int16_t *)(cmd_frame + 4) = (int16_t)((msg->linear.x - msg->angular.z*0.181)*98500/M_PI);
+	*(int16_t *)(cmd_frame + 6) = (int16_t)((msg->linear.x + msg->angular.z*0.181)*98500/M_PI);
 
 	ROS_INFO("ROS Command: \n\
 			 left_speed: %d\n\
@@ -205,7 +205,7 @@ int main (int argc, char** argv){
 				//only if the robot has traveled a significant distance will be calculate the odometry
 				if(!((left_delta < 0.0075 && left_delta > -0.0075) && (right_delta < 0.0075 && right_delta > -0.0075))){
 					//Calculate the pose in reference to world base
-					theta += (right_delta - left_delta)/0.38;
+					theta += (right_delta - left_delta)/0.362;
 
 					//translate theta to [-pi; pi]
 					if(theta > (2*M_PI)) theta -= 2*M_PI;
@@ -218,7 +218,7 @@ int main (int argc, char** argv){
 
 					//Calculate the twist in reference to the robot base
 					linear_x = (right_speed + left_speed)/2;
-					angular_z = (right_speed - left_speed)/0.4;
+					angular_z = (right_speed - left_speed)/0.362;
 
 					left_path1 = left_path;
 					right_path1 = right_path;
@@ -242,7 +242,7 @@ int main (int argc, char** argv){
 				move_base_odom.pose.pose.orientation.w = move_base_quat.w();
 
 				//Set the velocity
-				move_base_odom.child_frame_id = "base_link";
+				move_base_odom.child_frame_id = "base_robot";
 				move_base_odom.twist.twist.linear.x = linear_x;
 				move_base_odom.twist.twist.linear.y = 0;
 				move_base_odom.twist.twist.angular.z = angular_z;

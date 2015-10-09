@@ -12,7 +12,7 @@
         <param name="map_update_interval" value="1.0"/> <!--Publish new map-->
         <param name="maxUrange" value="6.0"/>  <!--the maximum usable range of the laser-->
         <param name="maxRange" value="8.1"/>	  <!-- the maximum range of the sensor-->
-        <param name="particles" value="60"> <!--increased from 80-->
+        <param name="particles" value="60"/> <!--increased from 80-->
         
         <!--Update frequencies-->
         <param name="linearUpdate" value="0.25"/>     <!-- param name="linearUpdate" value="0.5"/-->
