@@ -27,12 +27,11 @@
 #define BAUDMACRO	B460800
 #define DEFAULT_SERIALPORT "/dev/ttyUSB0"
 #define FPS	40		//frames per second
-#define RCV_LENGTH	20
+#define RCV_LENGTH	17
 
 static uint8_t cmd_frame[8];
-static uint8_t rsp_frame[20];
+static uint8_t rsp_frame[17];
 static uint8_t cmd_field[3];
-static uint32_t time_start;
 static uint16_t pkg_id;
 bool find_mean;
 
@@ -182,13 +181,13 @@ int main (int argc, char** argv){
 				cmd_field[2] = 0;
 
 				//Time sent from RTOS to check if the moving base has been reset
-				uint32_t time_stamp = *(uint32_t *)(rsp_frame + 16);
+				uint8_t reset_robot = *(uint8_t *)(rsp_frame + 16);
 				//Calculate the x,y,z,v,w odometry data
 				double left_speed = *(int16_t *)(rsp_frame + 4)*M_PI/98500;
 				double right_speed = *(int16_t *)(rsp_frame + 6)*M_PI/98500;
 
 				//Get the newly traveled distance on each wheel
-				if (rcv_pkg_id == 0 || time_stamp <= time_start){
+				if (rcv_pkg_id == 0 || reset_robot == 1 ){
 					left_path_offset = *(int32_t *)(rsp_frame +8)*M_PI/98500; 
 					right_path_offset = *(int32_t *)(rsp_frame + 12)*M_PI/98500;
 					left_path = 0;
@@ -264,7 +263,7 @@ int main (int argc, char** argv){
 																right_speed,\
 																left_path,\
 																right_path,\
-																time_stamp - time_start);
+																reset_robot);
 
 			}
 			else{
