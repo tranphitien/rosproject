@@ -20,13 +20,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#define DISTANCE_OF_2W	0.362
+#define CONVERT_M_TO_ENC 100*9850/(10*M_PI)
+
 #define DEFAULT_BAUDRATE 460800
 #define BAUDMACRO	B460800
 #define DEFAULT_SERIALPORT "/dev/ttyUSB0"
 #define FPS	40		//frames per second
 #define RCV_LENGTH	20
-
-//#define TEST_COM
 
 static uint8_t cmd_frame[8];
 static uint8_t rsp_frame[20];
@@ -41,23 +42,14 @@ static double x = 0, y = 0, theta = 0;
 static double linear_x = 0, angular_z = 0;
 
 double WHEEL_COVARIANCE = 1e-3;
-//double ORI_COV = 1e-3;
-//double AGL_VEL_COV = 1e-3;
-//double LIN_ACE_COV = 1e-3;
-
-#ifdef TEST_COM
-uint16_t error_count = 0;
-float com_error_rate = 0.0;
-#endif
-
 
 void ucCommandCallback(const geometry_msgs::Twist::ConstPtr& msg){
 	if(msg->linear.x != 0 || msg->angular.z != 0)
 		cmd_frame[1] = 'R';
 	else cmd_frame[1] = 'r';
 	// Do some conversion to send speed values to MCU
-	*(int16_t *)(cmd_frame + 4) = (int16_t)((msg->linear.x - msg->angular.z*0.2)*10000/M_PI);
-	*(int16_t *)(cmd_frame + 6) = (int16_t)((msg->linear.x + msg->angular.z*0.2)*10000/M_PI);
+	*(int16_t *)(cmd_frame + 4) = (int16_t)((msg->linear.x - msg->angular.z*0.362)*98500/M_PI);
+	*(int16_t *)(cmd_frame + 6) = (int16_t)((msg->linear.x + msg->angular.z*0.362)*98500/M_PI);
 
 	ROS_INFO("ROS Command: \n\
 			 left_speed: %d\n\
@@ -171,7 +163,6 @@ int main (int argc, char** argv){
 		//*(uint16_t *)(cmd_frame + 6) = right_speed; // set right speed
 		res = write(fd, cmd_frame, 8);
 		if (res < 8) ROS_ERROR("Error sending command");
-
 		current_time = ros::Time::now();
 		//sleep to wait the response is returned
 		rate.sleep();
@@ -179,10 +170,7 @@ int main (int argc, char** argv){
 		//Read a number of RCV_LENGHT chars as if they have arrived
 		res = read(fd, rsp_frame, RCV_LENGTH);
 		if (res < RCV_LENGTH){
-			ROS_INFO("frame %d dropped........%d", pkg_id, res);
-#ifdef TEST_COM
-			error_count ++;
-#endif
+			ROS_INFO("frame %d dropped", pkg_id);
 			while(read(fd, rsp_frame, 1) > 0);
 		}
 		else{
@@ -196,19 +184,19 @@ int main (int argc, char** argv){
 				//Time sent from RTOS to check if the moving base has been reset
 				uint32_t time_stamp = *(uint32_t *)(rsp_frame + 16);
 				//Calculate the x,y,z,v,w odometry data
-				double left_speed = *(int16_t *)(rsp_frame + 4)*M_PI/10000;
-				double right_speed = *(int16_t *)(rsp_frame + 6)*M_PI/10000;
+				double left_speed = *(int16_t *)(rsp_frame + 4)*M_PI/98500;
+				double right_speed = *(int16_t *)(rsp_frame + 6)*M_PI/98500;
 
 				//Get the newly traveled distance on each wheel
 				if (rcv_pkg_id == 0 || time_stamp <= time_start){
-					left_path_offset = *(int32_t *)(rsp_frame +8)*M_PI/10000;
-					right_path_offset = *(int32_t *)(rsp_frame + 12)*M_PI/10000;
+					left_path_offset = *(int32_t *)(rsp_frame +8)*M_PI/98500; 
+					right_path_offset = *(int32_t *)(rsp_frame + 12)*M_PI/98500;
 					left_path = 0;
 					right_path = 0;
 				}
 				else{
-					left_path = *(int32_t *)(rsp_frame +8)*M_PI/10000 - left_path_offset;
-					right_path = *(int32_t *)(rsp_frame + 12)*M_PI/10000 - right_path_offset;
+					left_path = *(int32_t *)(rsp_frame +8)*M_PI/98500 - left_path_offset;
+					right_path = *(int32_t *)(rsp_frame + 12)*M_PI/98500 - right_path_offset;
 				}
 
 				//Calculate and publish the odometry data
@@ -281,21 +269,11 @@ int main (int argc, char** argv){
 			}
 			else{
 				ROS_INFO("frame %d corrupted !", pkg_id);
-#ifdef TEST_COM
-				error_count++;
-#endif
 				while(read(fd, rsp_frame, 1) > 0);
 			}
 		}
 		//Increase pkg_id for next loop's frame check
 		pkg_id ++;
-#ifdef TEST_COM
-		if(pkg_id == 65535){
-			com_error_rate = (float)error_count/65535;
-			ROS_INFO("COM ERROR RATE: %f", com_error_rate);
-		break;
-		}
-#endif
 	}
 	//Process ROS message and send serial commands to uController
 	ROS_INFO("Serial server stopped.");

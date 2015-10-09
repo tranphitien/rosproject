@@ -5,7 +5,6 @@
 				<geometry>
 					<cylinder length="0.005" radius="0.2" />
 				</geometry>
-				<!--origin rpy = "0 0 0" xyz = "0 0 0.05" /-->
 				<material name = "black">
 					<color rgba = "0 0 0.118 1" />
 				</material>

@@ -7,4 +7,4 @@
 		<rosparam file="$(find tp_base)/launch/config_nav/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
 		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
 	</node>
-</laucnh>
+</launch>

@@ -2,14 +2,8 @@
 <launch>
 	<master auto = "start" />
 	<!-- Run the configuration_nodes-->
-	<!--include file = "$(find tp_base)/launch/configuration_nodes.launch" /-->
+	<include file = "$(find tp_base)/launch/configuration_nodes.launch" />
 	<!-- Run the robot display-->
 	<include file = "$(find tp_base)/launch/configuration_tp_robot.launch" />
-	<!-- Run the serial server-->
-	<include file = "$(find tp_serial)/launch/tp_serial.launch" />
 
-	<node pkg = "tp_base" type = "robot_tf_publisher" name = "robot_tf_publisher" output = "screen">
-		<param name = "tilt_angle" value = "0.0" type = "double" />
-		<param name = "camera_height" value = "0.5" type = "double" />
-	</node>
 </launch>
