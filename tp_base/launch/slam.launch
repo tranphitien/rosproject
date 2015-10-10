@@ -1,19 +1,9 @@
-<?xml version="1.0"?>
+<?xml version = "1.0"?>
 <launch>
-	<!-- Run the map_server node-->
-	<node name = "map_server" pkg = "map_server" type = "map_server" args = "$(find tp_base)/maps/my_room.pgm 0.001">
-		<param name = "frame_id" value = "map" />
-	</node>
+	<master auto = "start" />
 	
 	<!-- Run Gmapping node-->
 	<include file="$(find tp_base)/launch/gmapping.launch"/>
-    
-	<!-- Run amcl node-->
-	<!--include file = "$(find amcl)/examples/amcl_diff.launch" /-->
- 	<include file="$(find tp_base)/launch/amcl.launch"/>
-	
-	<!-- Run the move_base node-->
-	<include file="$(find tp_base)/launch/move_base.launch"/>
 	
 	<!--Run Kinect and depthimage_to_laserscan node-->
 	<include file="$(find tp_base)/launch/sensor_source.launch"/>
@@ -27,4 +17,9 @@
 		<param name = "camera_height" value = "0.5" type = "double" />
 	</node>
 	
+	<!-- Run the robot display-->
+	<include file = "$(find tp_base)/launch/configuration_tp_robot.launch" />
+	
+	<!-- Run RVIZ-->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find tp_base)/urdf/slam.rviz" />
 </launch>

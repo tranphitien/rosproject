@@ -1,16 +1,8 @@
 <?xml version="1.0"?>
 <launch>
-	<!-- Run the map_server node-->
-	<!--node name = "map_server" pkg = "map_server" type = "map_server" args = "$(find tp_base)/maps/map.yaml" ouput = "screen">
-		<param name = "frame_id" value = "/map" />
-	</node-->
 	
 	<!-- Run Gmapping node-->
 	<include file="$(find tp_base)/launch/gmapping.launch"/>
-    
-	<!-- Run amcl node-->
-	<!--include file = "$(find amcl)/examples/amcl_diff.launch" /-->
- 	<include file="$(find tp_base)/launch/amcl.launch"/>
 	
 	<!-- Run the move_base node-->
 	<include file="$(find tp_base)/launch/move_base.launch"/>
