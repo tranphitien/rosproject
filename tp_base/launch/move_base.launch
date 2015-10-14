@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 	<!-- Run the map_server node-->
-	<node name = "map_server" pkg = "map_server" type = "map_server" args = "$(find tp_base)/maps/my_room.yaml">
-		<param name = "frame_id" value = "map" />
+	<node name = "map_server" pkg = "map_server" type = "map_server" args = "$(find tp_base)/maps/my_room4.pgm 0.05">
+		<param name = "frame_id" value = "/map" />
 	</node>
     
 	<!-- Run amcl node-->
@@ -11,10 +11,10 @@
  	
  	<!-- Run the move_base node-->
 	<node pkg = "move_base" type = "move_base" respawn = "false" name = "move_base" output = "screen">
-		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="global_costmap" />
-		<rosparam file="$(find tp_base)/launch/config_nav/costmap_common_params.yaml" command="load" ns="local_costmap" />
-		<rosparam file="$(find tp_base)/launch/config_nav/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
-		<rosparam file="$(find tp_base)/launch/config_nav/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
-		<rosparam file="$(find tp_base)/launch/config_nav/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
+		<rosparam file="$(find tp_base)/launch/info/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find tp_base)/launch/info/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find tp_base)/launch/info/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
+		<rosparam file="$(find tp_base)/launch/info/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
+		<rosparam file="$(find tp_base)/launch/info/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
 	</node>
 </launch>

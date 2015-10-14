@@ -26,7 +26,7 @@
 #define DEFAULT_BAUDRATE 460800
 #define BAUDMACRO	B460800
 #define DEFAULT_SERIALPORT "/dev/ttyUSB0"
-#define FPS	40		//frames per second
+#define FPS	10 //40		//frames per second
 #define RCV_LENGTH	17
 
 static uint8_t cmd_frame[8];
@@ -169,7 +169,7 @@ int main (int argc, char** argv){
 		//Read a number of RCV_LENGHT chars as if they have arrived
 		res = read(fd, rsp_frame, RCV_LENGTH);
 		if (res < RCV_LENGTH){
-			ROS_INFO("frame %d dropped", pkg_id);
+			//ROS_INFO("frame %d dropped", pkg_id);
 			while(read(fd, rsp_frame, 1) > 0);
 		}
 		else{
@@ -205,7 +205,7 @@ int main (int argc, char** argv){
 				//only if the robot has traveled a significant distance will be calculate the odometry
 				if(!((left_delta < 0.0075 && left_delta > -0.0075) && (right_delta < 0.0075 && right_delta > -0.0075))){
 					//Calculate the pose in reference to world base
-					theta += (right_delta - left_delta)/0.362;
+					theta += (right_delta - left_delta)/0.3559;
 
 					//translate theta to [-pi; pi]
 					if(theta > (2*M_PI)) theta -= 2*M_PI;
@@ -224,11 +224,12 @@ int main (int argc, char** argv){
 					right_path1 = right_path;
 
 				}
+    
 				// Infer the rotation angle and publish transform
 				move_base_quat = tf::Quaternion(tf::Vector3(0, 0, 1), theta);
 				transform_broadcaster.sendTransform(tf::StampedTransform(
 													tf::Transform(move_base_quat, tf::Vector3(x,y,0)),
-													ros::Time::now(), "odom", "base_robot"));
+													current_time, "odom", "base_robot"));
 
 				//Publish the odometry message over ROS
 				move_base_odom.header.stamp = current_time;
@@ -257,7 +258,7 @@ int main (int argc, char** argv){
 				odom_pub.publish(move_base_odom);
 				path_pub.publish(pathMsg);
 
-				ROS_INFO("MCU responded: %s\t%d\t%f\t%f\t%f\t%f\t%d", cmd_field,\
+				//ROS_INFO("MCU responded: %s\t%d\t%f\t%f\t%f\t%f\t%d", cmd_field,\
 																rcv_pkg_id,\
 																left_speed,\
 																right_speed,\

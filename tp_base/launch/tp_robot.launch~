@@ -5,5 +5,7 @@
 	<include file = "$(find tp_base)/launch/configuration_nodes.launch" />
 	<!-- Run the robot display-->
 	<include file = "$(find tp_base)/launch/configuration_tp_robot.launch" />
-
+	
+	<!-- Run RVIZ-->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find tp_base)/rviz/urdf_rviz.rviz" />
 </launch>

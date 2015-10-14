@@ -6,13 +6,6 @@
 #in the costmap
 #the other one is used to clean/clear the costmap and update the free space in it when the robot moves.
 
-#map_type: voxel
-#Voxel grid specific parameters
-#z_voxels: 10
-#z_resolution: 0.2
-#unknown_threshold: 8
-#mark_threshold: 0
-
 #set the tolerance we're willing to have for tf transforms
 transform_tolerance: 0.4
 
@@ -38,7 +31,9 @@ observation_sources: laser_scan_sensor
 #configure the sensor's frame and the uses of the data
 #laser_scan_sensor: {sensor_frame: laser_base_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
 laser_scan_sensor: {sensor_frame: openni_depth_frame, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
-#point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true, min_obstacle_heigth: 0.05, max_obstacle_height: 1}
+
+#point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true, min_obstacle_heigth: 0.05, max_obstacle_height: 2}
+point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true}
 
 #the laser configured in the previous line is used to add and clear obstacles in the costmap
 #the topic's name is configured in this line, it is important to configure it well because the navigation stack could wait 

@@ -10,21 +10,26 @@
         <param name="map_frame" value="map"/>
         
         <param name="map_update_interval" value="30.0"/> <!--Publish new map-->
-        <param name="maxUrange" value="3.7"/>  <!--the maximum usable range of the laser-->
-        <param name="maxRange" value="4.0"/>	  <!-- the maximum range of the sensor-->
-        <param name="particles" value="60"/> <!--increased from 80-->
+        <param name="maxUrange" value="4.5"/>  <!--the maximum usable range of the laser-->
+        <param name="maxRange" value="5.0"/>	  <!-- the maximum range of the sensor. If regions with no obstacles within the range of the sensor should appear as free space in the map, set maxUrange < maximum range of the real sensor <= maxRange-->
+        <param name="particles" value="80"/> <!--increased from 80-->
         
         <!--Update frequencies-->
-        <param name="linearUpdate" value="0.25"/>     <!-- param name="linearUpdate" value="0.5"/-->
-        <param name="angularUpdate" value="0.262"/>   <!--param name="angularUpdate" value="0.436"/-->
+        <param name="linearUpdate" value="0.5"/>     <!-- param name="linearUpdate" value="0.5"/-->
+        <param name="angularUpdate" value="0.436"/>   <!--param name="angularUpdate" value="0.436"/-->
         <param name="temporalUpdate" value="-1.0"/>
         <param name="resampleThreshold" value="0.5"/>
         
         <!--Init map size-->
-        <param name="xmin" value="-50.0"/>
+        <!--param name="xmin" value="-50.0"/>
         <param name="ymin" value="-50.0"/>
         <param name="xmax" value="50.0"/>
         <param name="ymax" value="50.0"/>
+        <param name="delta" value="0.05"/-->
+        <param name="xmin" value="-1.0"/>
+        <param name="ymin" value="-1.0"/>
+        <param name="xmax" value="1.0"/>
+        <param name="ymax" value="1.0"/>
         <param name="delta" value="0.05"/>
         
         <!--All default-->

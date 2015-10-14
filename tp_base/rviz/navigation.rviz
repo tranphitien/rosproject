@@ -5,6 +5,9 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /PoseArray1
+        - /Marker1
+        - /InteractiveMarkers1
       Splitter Ratio: 0.5
     Tree Height: 495
   - Class: rviz/Selection
@@ -203,7 +206,7 @@ Visualization Manager:
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 25; 255; 0
+      Color: 17; 170; 0
       Enabled: true
       Name: Path_Nav
       Topic: /move_base/NavfnROS/plan
@@ -224,10 +227,48 @@ Visualization Manager:
       Name: Path_Local
       Topic: /move_base/TrajectoryPlannerROS/local_plan
       Value: true
+    - Arrow Length: 0.05
+      Class: rviz/PoseArray
+      Color: 52; 65; 255
+      Enabled: true
+      Name: PoseArray
+      Topic: /particlecloud
+      Value: true
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Polygon_Global
+      Topic: /move_base/global_costmap/obstacle_layer_footprint/footprint_stamped
+      Value: true
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Polygon_Local
+      Topic: /move_base/local_costmap/obstacle_layer_footprint/footprint_stamped
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: visualization_marker
+      Name: Marker
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Name: InteractiveMarkers
+      Show Axes: false
+      Show Descriptions: true
+      Show Visual Aids: false
+      Update Topic: ""
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: odom
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -248,22 +289,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 10.0919
+      Distance: 9.49635
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 9.59482
+        Y: 9.70335
+        Z: -0.00166321
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.970398
+      Pitch: 1.28222
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.75721
+      Yaw: 4.55367
     Saved: ~
 Window Geometry:
   Displays:
@@ -281,5 +322,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1215
-  X: 65
+  X: 413
   Y: 24

@@ -14,12 +14,12 @@
 	<!-- Run the sensor transforms node-->
 	<node pkg = "tp_base" type = "robot_tf_publisher" name = "robot_tf_publisher" output = "screen">
 		<param name = "tilt_angle" value = "0.0" type = "double" />
-		<param name = "camera_height" value = "0.5" type = "double" />
+		<param name = "camera_height" value = "0.551" type = "double" />
 	</node>
 	
 	<!-- Run the robot display-->
 	<include file = "$(find tp_base)/launch/configuration_tp_robot.launch" />
 
 	<!-- Run RVIZ-->
-	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find tp_base)/urdf/navigation.rviz" />
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find tp_base)/rviz/navigation.rviz" />
 </launch>
