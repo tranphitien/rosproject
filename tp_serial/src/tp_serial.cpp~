@@ -26,7 +26,7 @@
 #define DEFAULT_BAUDRATE 460800
 #define BAUDMACRO	B460800
 #define DEFAULT_SERIALPORT "/dev/ttyUSB0"
-#define FPS	40		//frames per second
+#define FPS	10 //40		//frames per second
 #define RCV_LENGTH	17
 
 static uint8_t cmd_frame[8];
@@ -229,10 +229,11 @@ int main (int argc, char** argv){
 				move_base_quat = tf::Quaternion(tf::Vector3(0, 0, 1), theta);
 				transform_broadcaster.sendTransform(tf::StampedTransform(
 													tf::Transform(move_base_quat, tf::Vector3(x,y,0)),
-													current_time, "odom", "base_robot"));
+													ros::Time::now(), "odom", "base_robot"));
 
 				//Publish the odometry message over ROS
 				move_base_odom.header.stamp = current_time;
+				//move_base_odom.header.stamp = ros::Time::now();
 				//set the position
 				move_base_odom.pose.pose.position.x = x;
 				move_base_odom.pose.pose.position.y = y;

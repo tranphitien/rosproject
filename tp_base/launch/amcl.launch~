@@ -18,7 +18,7 @@
     	<param name="odom_alpha1" value="0.5"/> <!-- Specifies the expected noise in odometry's rotation estimate from the rotational component of the robot's motion-->
     	<param name="odom_alpha2" value="0.2"/> <!-- Specifies the expected noise in odometry's rotation estimate from translational component of the robot;s motion-->
     	<param name="odom_alpha3" value="0.2"/> <!-- Specifies the expected noise in odometry's translation estimate from the translation component of the robot's motion-->
-    	<param name="odom_alpha4" value="0.2"/> <!-- Specifies the expected noise in odometry's translation estimate from the rotationl component of the robot's motion-->
+    	<param name="odom_alpha4" value="0.5"/> <!-- Specifies the expected noise in odometry's translation estimate from the rotationl component of the robot's motion-->
     	<param name="odom_alpha5" value="0.1"/>
     	
     	<!-- Overall filter parameters -->
@@ -28,17 +28,16 @@
   		<param name="initial_pose_y" value="24.0"/>
   		<param name="initial_pose_a" value="3.14.0"/-->
     	<param name="update_min_d" value="0.2"/> <!-- Translational movement required before performing a filter update-->
-    	<param name="update_min_a" value="0.5"/> <!-- Rotational movement required before performing a filter update. 0.1 represents 5.7 degrees-->
+    	<param name="update_min_a" value="0.2"/> <!-- Rotational movement required before performing a filter update. 0.1 represents 5.7 degrees-->
     	<param name="resample_interval" value="1"/> <!-- Number of filter updates required before resampling-->
     	<!-- Increase tolerance because the computer can get quite busy -->
-    	<param name="transform_tolerance" value="0.1"/> <!-- Default 0.1: time with which to post-date the transform that is published, to indicate that this transform is valid into the future-->
+    	<param name="transform_tolerance" value="0.2"/> <!-- Default 0.1: time with which to post-date the transform that is published, to indicate that this transform is valid into the future-->
     	<param name="recovery_alpha_slow" value="0.001"/> <!-- Exponential dacay for the slow average weight filter, used in deciding when to recover by adding random poses-->
     	<param name="recovery_alpha_fast" value="0.1"/> <!-- Exponential decay rate for the fast average weight filter, used in deciding when to recover by adding random poses -->
     	<param name="min_particles" value="1000"/>
     	<param name="max_particles" value="10000"/>
     	<param name="kld_err" value="0.05"/>
-    	<param name="kld_z" value="0.99"/>
-    	
+    	<param name="kld_z" value="0.99"/>    	
     	
     	<!-- Laser model parameters -->
     	<param name="laser_max_beams" value="60"/>
@@ -52,7 +51,6 @@
     	<param name="laser_model_type" value="likelihood_field"/>
     	<!-- <param name="laser_model_type" value="beam"/> -->
     	<param name="laser_likelihood_max_dist" value="2.0"/>
-    	
     	
   	</node>
 </launch>

@@ -6,34 +6,25 @@
 #in the costmap
 #the other one is used to clean/clear the costmap and update the free space in it when the robot moves.
 
-#set the tolerance we're willing to have for tf transforms
-transform_tolerance: 0.4
-
 obstacle_range: 2.5
 max_obstacle_height: 2.0
+min_obstacle_height: 0.0
 raytrace_range: 3.0
+#cost_scaling_factor: 10
 
-#the footprint attribute is used to indicate to the navigation stack the geometry of the robot. It will be used to keep the right
-#distance between obstacle and the robot or to know if the robot can go through a door
-
-#footprint: [[-0.2, -0.2], [-0.2, 0.2], [0.2, 0.2], [0.2, -0.2]]
 robot_radius: 0.2
 
 #the inflation_radius attribute is the value given to keep a minimal distance between the geometry of the robot and the obstacle
-inflation_radius: 0.4
+inflation_radius: 0.2
 
-#cost_scaling_factor: 10
+#map_type: costmap
+transform_tolerance: 1 #seconds
 
 #this attribute can set the sensors used by the navigation stack to get the data from the real world and calculate the path
-#observation_sources: laser_scan_sensor point_cloud
-observation_sources: laser_scan_sensor
-
-#configure the sensor's frame and the uses of the data
-#laser_scan_sensor: {sensor_frame: laser_base_link, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
-laser_scan_sensor: {sensor_frame: openni_depth_frame, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
-
-#point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true, min_obstacle_heigth: 0.05, max_obstacle_height: 2}
-point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true}
+#obstacles:
+observation_sources: laser_scan_sensor point_cloud
+laser_scan_sensor: {sensor_frame: /laser, data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true, min_obstacle_heigth: 0.05, max_obstacle_height: 0.5}
 
 #the laser configured in the previous line is used to add and clear obstacles in the costmap
 #the topic's name is configured in this line, it is important to configure it well because the navigation stack could wait 

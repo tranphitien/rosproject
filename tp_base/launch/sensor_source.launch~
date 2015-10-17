@@ -25,6 +25,6 @@
 																						<!--scan_height cang lon thi lat cat can gan mat dat-->
 		<param name = "output_frame_id" value = "/laser_link" type = "string" /> 	<!--day la he toa do cua lat cat-->
 																											<!--mat dinh lat cat nam trong mat phang 0xy-->
-		<param name = "scan_time" value = "0.5" type = "double" />	<!--tan so publish cua message tu cam bien laser-->
+		<param name = "scan_time" value = "0.01" type = "double" />	<!--tan so publish cua message tu cam bien laser-->
 	</node>
 </launch>

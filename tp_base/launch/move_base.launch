@@ -11,10 +11,10 @@
  	
  	<!-- Run the move_base node-->
 	<node pkg = "move_base" type = "move_base" respawn = "false" name = "move_base" output = "screen">
-		<rosparam file="$(find tp_base)/launch/info/costmap_common_params.yaml" command="load" ns="global_costmap" />
-		<rosparam file="$(find tp_base)/launch/info/costmap_common_params.yaml" command="load" ns="local_costmap" />
-		<rosparam file="$(find tp_base)/launch/info/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
-		<rosparam file="$(find tp_base)/launch/info/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
-		<rosparam file="$(find tp_base)/launch/info/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
+		<rosparam file="$(find tp_base)/launch/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find tp_base)/launch/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find tp_base)/launch/config/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
+		<rosparam file="$(find tp_base)/launch/config/local_costmap_params.yaml" command="load" />	<!--param="local_costMap"-->
+		<rosparam file="$(find tp_base)/launch/config/base_local_planner_params.yaml" command="load" />	<!--param ="local_planner"-->
 	</node>
 </launch>

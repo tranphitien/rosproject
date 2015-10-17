@@ -5,11 +5,22 @@
 				<geometry>
 					<cylinder length="0.005" radius="0.2" />
 				</geometry>
-				<!--origin rpy = "0 0 0" xyz = "0 0 0.05" /-->
 				<material name = "black">
 					<color rgba = "0 0 0.118 1" />
 				</material>
 			</visual>	
+			<collision>
+				<geometry>
+					<cylinder length="0.005" radius="0.2" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "base_up_robot">
@@ -19,6 +30,18 @@
 				</geometry>
 				<material name = "black"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "base_laser">
@@ -30,11 +53,11 @@
 					<color rgba = "0.12 0.05 0.05 1" />
 				</material>
 			</visual>
-			<!--collision>
+			<collision>
 				<geometry>
-					<box size="0.2 0.04 0.024" />
+					<box size="0.05 0.25 0.046" />
 				</geometry>
-			</collision-->
+			</collision>
 			<inertial>
 	      	<mass value="0.0001" />
 	     	 	<origin xyz="0 0 0" />
@@ -53,6 +76,18 @@
 					<color rgba = "0.12 0.05 0.05 1" />
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "rect_bott">
@@ -64,6 +99,18 @@
 					<color rgba = "0.0118 0.1373 0.4863 1" />
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "left_wheel">
@@ -75,7 +122,19 @@
 				<material name = "blue_dark">
 					<color rgba="0.3333 0.3333 0.498 1"/>
 				</material>
-			</visual>		
+			</visual>	
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>	
 		</link>
 		
 		
@@ -87,6 +146,18 @@
 				<origin rpy = "0 1.5708 1.5708" xyz = "0 0 0" />
 				<material name = "blue_dark"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "wheel_front_of">
@@ -98,6 +169,18 @@
 					<color rgba = "0.5333 0.525 0.6 1"/>
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "wheel_behind">
@@ -109,6 +192,18 @@
 					<color rgba = "0.5333 0.525 0.6 1"/>
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<!--*******************************************************-->
@@ -122,6 +217,18 @@
 					<color rgba="0.808 0.749 0.569 1"/>
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "ver_laser_right">
@@ -133,6 +240,18 @@
 					<color rgba = "0.95 1 0.95 1" />
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		
@@ -143,6 +262,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "ver2">
@@ -152,6 +283,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "ver3">
@@ -161,6 +304,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "ver4">
@@ -170,6 +325,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "ver5">
@@ -179,6 +346,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "wheel_bar_front_of">
@@ -188,6 +367,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.05 0.25 0.046" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "wheel_bar_behind">
@@ -197,6 +388,18 @@
 				</geometry>
 				<material name = "white_gray"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.03 0.03 0.0721" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		<!--*******************************************************-->
 		
@@ -209,6 +412,18 @@
 					<color rgba="0.761 1 0.648 1"/>
 				</material>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.22 0.3 0.012" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<link name = "screen_laptop">
@@ -219,6 +434,18 @@
 				<origin rpy = "0 1.8 0" xyz = "0 0 0" />
 				<material name = "green"/>
 			</visual>
+			<collision>
+				<geometry>
+					<box size="0.22 0.3 0.012" />
+				</geometry>
+			</collision>
+			<inertial>
+	      	<mass value="0.0001" />
+	     	 	<origin xyz="0 0 0" />
+	      	<inertia ixx="0.0001" ixy="0.0" ixz="0.0"
+		       			iyy="0.0001" iyz="0.0" 
+		       			izz="0.0001" />
+	  		</inertial>
 		</link>
 		
 		<!--*******************************************************-->

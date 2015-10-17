@@ -233,6 +233,7 @@ int main (int argc, char** argv){
 
 				//Publish the odometry message over ROS
 				move_base_odom.header.stamp = current_time;
+				//move_base_odom.header.stamp = ros::Time::now();
 				//set the position
 				move_base_odom.pose.pose.position.x = x;
 				move_base_odom.pose.pose.position.y = y;
