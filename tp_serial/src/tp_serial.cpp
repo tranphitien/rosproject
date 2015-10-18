@@ -26,7 +26,7 @@
 #define DEFAULT_BAUDRATE 460800
 #define BAUDMACRO	B460800
 #define DEFAULT_SERIALPORT "/dev/ttyUSB0"
-#define FPS	10 //40		//frames per second
+#define FPS	25 //40		//frames per second
 #define RCV_LENGTH	17
 
 static uint8_t cmd_frame[8];

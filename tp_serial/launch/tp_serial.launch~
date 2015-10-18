@@ -1,7 +1,0 @@
-<?xml version = "1.0"?>
-<launch>
-	<node name = "tp_serial" type = "tp_serial" pkg = "tp_serial" >
-		<param name = "port" value = "/dev/ttyUSB0" />
-		<param name = "baud" value = "460800" type = "double" />
-	</node>
-</launch>

@@ -11,6 +11,12 @@
  	
  	<!-- Run the move_base node-->
 	<node pkg = "move_base" type = "move_base" respawn = "false" name = "move_base" output = "screen">
+	
+		<param name="controller_frequency" value="10.0" />
+    	<param name="controller_patience" value="3.0" />
+   	<param name="oscillation_timeout" value="30.0" />
+    	<param name="oscillation_distance" value="0.5" />
+    	
 		<rosparam file="$(find tp_base)/launch/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
 		<rosparam file="$(find tp_base)/launch/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
 		<rosparam file="$(find tp_base)/launch/config/global_costmap_params.yaml" command="load" /> <!--param="global_costMap"-->
