@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- Run the map_server node-->
+	<node name = "map_server" pkg = "map_server" type = "map_server" args = "$(find tp_base)/maps/my_room4.pgm 0.05">
+		<param name = "frame_id" value = "/map" />
+	</node>
+    
+	<!-- Run amcl node-->
+	<!--include file = "$(find amcl)/examples/amcl_diff.launch" /-->
+ 	<include file="$(find tp_base)/launch/amcl.launch"/>
+ 	
+ 	<!-- Run the move_base node-->
+	<node pkg = "move_base" type = "move_base" respawn = "false" name = "move_base" output = "screen">
+	
+		<param name="controller_frequency" value="5.0" />
+    	<!--param name="controller_patience" value="3.0" />
+    	<param name="planner_frequency" value="1.0" />
+    	<param name="planner_patience" value="5.0" />
+   	<param name="oscillation_timeout" value="30.0" />
+    	<param name="oscillation_distance" value="0.5" /-->
+    	
+		<rosparam file="$(find tp_base)/launch/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+		<rosparam file="$(find tp_base)/launch/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+		<rosparam file="$(find tp_base)/launch/config/global_costmap_params.yaml" command="load" />
+		<rosparam file="$(find tp_base)/launch/config/local_costmap_params.yaml" command="load" />
+		<rosparam file="$(find tp_base)/launch/config/base_local_planner_params.yaml" command="load" />
+		
+
+	</node>
+</launch>

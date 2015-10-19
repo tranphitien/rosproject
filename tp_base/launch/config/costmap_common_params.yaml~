@@ -1,0 +1,35 @@
+#this file is used to configure common parameters. The parameters are used in local_costmap and global_costmap
+
+#obstacle_range and raytrace_range attributes attribute are used to indicate the maximun distance that the sensor will read 
+#and introduce new information in the costmaps.
+#the first on is used for the obstacles, if the robot detects an obstacle closer than 2.5m in our case, it will put the obstacle in the costmap
+#the other one is used to clean/clear the costmap and update the free space in it when the robot moves.
+
+obstacle_range: 2.5
+max_obstacle_height: 2.0
+min_obstacle_height: 0.0
+raytrace_range: 3.0
+cost_scaling_factor: 10
+robot_radius: 0.2
+
+inflation_radius: 0.2  #the inflation_radius attribute is the value given to keep a minimal distance between the geometry of the robot and the obstacle
+
+# voxel map configuration; z-voxels 0 are filled by bumpers and 1 by laser scan (kinect)
+map_type: voxel
+origin_z: 0.0
+z_resolution: 0.2
+z_voxels: 2
+publish_voxel_map: false
+
+transform_tolerance: 1 #seconds
+
+observation_sources: laser_scan_sensor point_cloud
+laser_scan_sensor: {data_type: LaserScan, topic: scan, marking: true, clearing: true, inf_is_valid: true}
+point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true, min_obstacle_heigth: 0.1, max_obstacle_height: 0.5}
+
+
+
+  
+#the laser configured in the previous line is used to add and clear obstacles in the costmap
+#the topic's name is configured in this line, it is important to configure it well because the navigation stack could wait 
+#for another topic, all this while the robot is moving and it can crash into a wall or an obstacle

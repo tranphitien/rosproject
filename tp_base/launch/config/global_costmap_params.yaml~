@@ -1,0 +1,14 @@
+global_costmap:
+ global_frame: map
+ robot_base_frame: base_robot
+ update_frequency: 5.0
+ #publish_frequency: 2.0
+ static_map: true        #This parameter determines wheter or not the costmap should initalize itself based on a map served by the map server. If you're using an existing map or map server, set the static_map parameter to false
+ rolling_window: false
+ 
+ track_unknown_space: true
+      
+#the global_frame and the robot_base_frame attributes define the transformation between the map and the robot.
+#configure the frequency for the updates for the costmap (Hz)
+#the static_map attribute is used for the global costmap to know if a map or the map server is used to initialize the costmap
+

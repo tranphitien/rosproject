@@ -1,0 +1,15 @@
+# the base panner is used to generate the velocity commands to move our robot
+#the config file will set the maximum and minimum velocities for your robot and also the acceleration is set
+
+TrajectoryPlannerROS:
+  max_vel_x: 0.15 #m/s
+  min_vel_x: 0.035
+  max_rotational_vel: 0.4   #0.1 rad/sec = 5.7 degrees/sec
+  min_in_place_rotational_vel: 0.33
+  oscillation_reset_dist: 0.05      # How far the robot must travel in meter before oscillation flags are reset
+
+  acc_lim_th: 5.0   # m/s^2
+  acc_lim_x: 4.0
+  acc_lim_y: 4.0
+
+  holonomic_robot: false

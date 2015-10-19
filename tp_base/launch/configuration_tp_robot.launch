@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+	
+	<arg name = "model" default = "$(find tp_base)/urdf/tp_robot.urdf" />
+	<arg name = "gui" default="False" />
+	<param name = "robot_description" textfile="$(arg model)" />
+	<param name = "use_gui" value = "$(arg gui)" />
+	<!--to joint elements together-->
+	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+	<!--start robot state publisher-->
+	<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+	
+</launch>

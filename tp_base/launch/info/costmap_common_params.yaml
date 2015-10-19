@@ -1,0 +1,19 @@
+#obstacle_range and raytrace_range attributes are used to indicate the maximun distance that the sensor will read and introduce new information in the costmaps.
+#the first one is used for the obstacles, if the robot detects an obstacle closer than 3m in our case, it will put the obstacle in the costmap
+#the other one is used to clean/clear the costmap and update the free space in it when the robot moves.
+
+obstacle_range: 3.0
+raytrace_range: 3.0
+robot_radius: 0.2
+inflation_radius: 0.35
+cost_scaling_factor: 10
+
+transform_tolerance: 1 #seconds
+
+observation_sources: laser_scan point_cloud
+laser_scan: {data_type: LaserScan, topic: /scan, marking: true, clearing: true}
+point_cloud: {data_type: PointCloud2, topic: /camera/depth/points, marking: true, clearing: true, min_obstacle_height: 0.1, max_obstacle_height: 0.5}
+
+#the laser configured in the previous line is used to add and clear obstacles in the costmap
+#the topic's name is configured in this line, it is important to configure it well because the navigation stack could wait 
+#for another topic, all this while the robot is moving and it can crash into a wall or an obstacle

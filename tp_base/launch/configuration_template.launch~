@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+	<!--the first one is the node responsible for activating the sensors, for example, the Laser Imaging, Detection, and Ranging
+	(LIDAR) system.the parameter sensor_param can be used to configure the sensor's port, for example, if the sensor uses a USB
+	connection. If the your sensor needs more parameters, you need to duplicate the line and add the necessary parameters-->
+	<node pkg = "sensor_node_pkg" type = "sensor_node_type" name = "sensor_node_name" output = "screen">
+	<param name = "sensor_param" value = "param_value" />
+	</node>
+	
+	<!--the second node is to start the odometry, the base control and all the neccessry files to move the base and calculate
+	the robot's position.-->
+	<node pkg = "odom_node_pkg" type = "odom_node_type" name = "odom_node" output = "screen">
+	<param name = "odom_param" value = "param_value" />
+	</node>
+	
+	<!--the third part is meant to launch the node responsible for publishing and calculating the geometry of the robot
+	and the transform between arms, sensors and so on-->
+	<node pkg = "transform_configuration_pkg" type = "transform_configuration_type" name = "transform_configuration_name" output = "screen">
+	<param name = "transform_configuration_param" value = "param_value"/>
+	</node>
+	<!--Run Kinect-->
+	<include file="$(find openni_launch)/launch/openni.launch" />
+	<node name= "depthimage_to_laserscan" pkg="depthimage_to_laserscan" type="depthimage_to_laserscan">
+		<remap from="image" to="/camera/depth/image_raw"/>
+	</node>
+	<!--Run RVIZ-->
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" />
+</launch>
